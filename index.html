@@ -6,172 +6,108 @@
     <title>Empire Rush</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        gradient: 'gradient 15s ease infinite',
+                        spin: 'spin 1s linear infinite',
+                        float: 'float 3s ease-in-out infinite',
+                        fadeIn: 'fadeIn 1.5s ease-in',
+                        pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        moneyFloat: 'moneyFloat linear infinite'
+                    },
+                    keyframes: {
+                        gradient: {
+                            '0%, 100%': { 'background-position': '0% 50%' },
+                            '50%': { 'background-position': '100% 50%' }
+                        },
+                        spin: {
+                            to: { transform: 'rotate(360deg)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-15px)' }
+                        },
+                        fadeIn: {
+                            from: { opacity: '0' },
+                            to: { opacity: '1' }
+                        },
+                        pulse: {
+                            '0%, 100%': { transform: 'scale(1)' },
+                            '50%': { transform: 'scale(1.05)' }
+                        },
+                        moneyFloat: {
+                            '0%': { transform: 'translateY(0) rotate(0deg)' },
+                            '100%': { transform: 'translateY(-100vh) rotate(360deg)' }
+                        }
+                    }
+                }
+            }
         }
-        
-        .gradient-bg {
-            background: linear-gradient(-45deg, #1a2a6c, #b21f1f, #fdbb2d);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
-        }
-        
-        .loader {
-            width: 48px;
-            height: 48px;
-            border: 5px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        .floating {
-            animation: floating 3s ease-in-out infinite;
-        }
-        
-        @keyframes floating {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
-        }
-        
-        .fade-in {
-            animation: fadeIn 1.5s ease-in;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .raccoon-icon {
-            position: relative;
-            width: 100px;
-            height: 100px;
-        }
-        
-        .raccoon-face {
-            width: 80px;
-            height: 70px;
-            background: #5c4d3c;
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            position: relative;
-        }
-        
-        .raccoon-mask {
-            width: 70px;
-            height: 40px;
-            background: #2d2520;
-            border-radius: 20px;
-            position: absolute;
-            top: 15px;
-            left: 5px;
-        }
-        
-        .raccoon-eye {
-            width: 12px;
-            height: 12px;
-            background: white;
-            border-radius: 50%;
-            position: absolute;
-            top: 25px;
-        }
-        
-        .eye-left {
-            left: 20px;
-        }
-        
-        .eye-right {
-            right: 20px;
-        }
-        
-        .raccoon-nose {
-            width: 10px;
-            height: 8px;
-            background: #ff6b8b;
-            border-radius: 50%;
-            position: absolute;
-            bottom: 15px;
-            left: 35px;
-        }
-        
-        .ear {
-            width: 25px;
-            height: 25px;
-            background: #5c4d3c;
-            border-radius: 50%;
-            position: absolute;
-            top: -10px;
-        }
-        
-        .ear-left {
-            left: 5px;
-            transform: rotate(-30deg);
-        }
-        
-        .ear-right {
-            right: 5px;
-            transform: rotate(30deg);
-        }
-        
-        .ear-inner {
-            width: 12px;
-            height: 12px;
-            background: #2d2520;
-            border-radius: 50%;
-            position: absolute;
-            top: 6px;
-            left: 6px;
-        }
-        
-        .qr-container {
-            background: white;
-            padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            margin-top: 30px;
-        }
-        
-        .qr-code {
-            width: 250px;
-            height: 250px;
-            background: white;
-            padding: 10px;
-        }
-        
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        .money-float {
-            position: absolute;
-            opacity: 0.7;
-            animation: moneyFloat linear infinite;
-        }
-        
-        @keyframes moneyFloat {
-            0% { transform: translateY(0) rotate(0deg); }
-            100% { transform: translateY(-100vh) rotate(360deg); }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .bg-gradient-animated {
+                @apply bg-gradient-to-br from-blue-900 via-red-800 to-yellow-400 bg-[length:400%_400%] animate-gradient;
+            }
+            
+            .raccoon-icon {
+                @apply relative w-[100px] h-[100px];
+            }
+            
+            .raccoon-face {
+                @apply w-[80px] h-[70px] bg-[#5c4d3c] rounded-[50%_50%_50%_50%/60%_60%_40%_40%] relative;
+            }
+            
+            .raccoon-mask {
+                @apply w-[70px] h-[40px] bg-[#2d2520] rounded-[20px] absolute top-[15px] left-[5px];
+            }
+            
+            .raccoon-eye {
+                @apply w-[12px] h-[12px] bg-white rounded-full absolute top-[25px];
+            }
+            
+            .eye-left {
+                @apply left-[20px];
+            }
+            
+            .eye-right {
+                @apply right-[20px];
+            }
+            
+            .raccoon-nose {
+                @apply w-[10px] h-[8px] bg-[#ff6b8b] rounded-full absolute bottom-[15px] left-[35px];
+            }
+            
+            .ear {
+                @apply w-[25px] h-[25px] bg-[#5c4d3c] rounded-full absolute top-[-10px];
+            }
+            
+            .ear-left {
+                @apply left-[5px] -rotate-[30deg];
+            }
+            
+            .ear-right {
+                @apply right-[5px] rotate-[30deg];
+            }
+            
+            .ear-inner {
+                @apply w-[12px] h-[12px] bg-[#2d2520] rounded-full absolute top-[6px] left-[6px];
+            }
+            
+            .money-float {
+                @apply absolute opacity-70 animate-moneyFloat;
+            }
         }
     </style>
 </head>
-<body class="gradient-bg min-h-screen flex flex-col items-center justify-center text-white overflow-hidden relative">
+<body class="bg-gradient-animated min-h-screen flex flex-col items-center justify-center text-white overflow-hidden relative font-sans">
     <!-- Mobile Content (hidden by default) -->
     <div id="mobile-content" class="hidden text-center px-4 max-w-4xl mx-auto fade-in z-10">
-        <div class="floating mb-8">
+        <div class="animate-float mb-8">
             <div class="raccoon-icon mx-auto">
                 <div class="ear ear-left">
                     <div class="ear-inner"></div>
@@ -239,9 +175,9 @@
             The ultimate money-making adventure is available only on mobile devices!
         </p>
         
-        <div class="qr-container pulse">
+        <div class="bg-white p-5 rounded-2xl shadow-xl mt-8 animate-pulse">
             <h3 class="text-black font-bold mb-4">Scan to play on your phone</h3>
-            <div class="qr-code mx-auto">
+            <div class="w-[250px] h-[250px] bg-white p-2.5 mx-auto">
                 <img src="qr-code.png" alt="Scan this QR code to download Empire Rush on your mobile device" class="w-full h-full">
             </div>
             <p class="text-black mt-4 text-sm">Point your phone's camera at the QR code</p>
@@ -258,13 +194,13 @@
     </div>
     
     <!-- Floating money elements -->
-    <div class="money-float" style="left: 10%; animation-duration: 15s; animation-delay: 0s;">
+    <div class="money-float left-[10%] [animation-duration:15s] [animation-delay:0s]">
         <i class="fas fa-money-bill-wave text-2xl"></i>
     </div>
-    <div class="money-float" style="left: 20%; animation-duration: 12s; animation-delay: 1s;">
+    <div class="money-float left-[20%] [animation-duration:12s] [animation-delay:1s]">
         <i class="fas fa-coins text-2xl"></i>
     </div>
-    <div class="money-float" style="left: 70%; animation-duration: 14s; animation-delay: 2s;">
+    <div class="money-float left-[70%] [animation-duration:14s] [animation-delay:2s]">
         <i class="fas fa-sack-dollar text-2xl"></i>
     </div>
     
